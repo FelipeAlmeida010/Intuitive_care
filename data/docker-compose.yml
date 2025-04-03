@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts:/docker-entrypoint-initdb.d/  # pasta de scripts para inicialização automática
+      - ./data:/data
+    ports:
+      - "5432:5432"
+    # healthcheck:
+    # test: ["CMD", "pg_isready", "-U", "user"]
+    # interval: 10s
+    # retries: 5
+
+volumes:
+  postgres_data:
